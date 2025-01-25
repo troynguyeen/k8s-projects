@@ -1,0 +1,20 @@
+# Url to access prometheus
+prometheus:
+  # Value is templated
+  url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local
+  port: 9090
+  path: ""
+
+rules:
+  custom: 
+    - seriesQuery: 'appdemo_http_requests_total{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace:
+            resource: "namespace"
+          pod:
+            resource: "pod"
+      name:
+        matches: "^(.*)_total"
+        as: "${1}_per_second"
+      metricsQuery: 'sum(rate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)'

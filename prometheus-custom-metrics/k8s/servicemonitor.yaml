@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: appdemo-servicemonitor
+  namespace: demo
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - demo
+  selector:
+    matchLabels:
+      app: appdemo-monitoring
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
