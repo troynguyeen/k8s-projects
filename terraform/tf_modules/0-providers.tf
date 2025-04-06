@@ -13,8 +13,8 @@ provider "aws" {
     tags = {
       Environment = "dev"
       Terraform   = true
-      Modules     = false
-      Purpose     = "Demo EKS by Terraform without Modules"
+      Modules     = true
+      Purpose     = "Demo EKS by Terraform Modules"
     }
   }
 }

@@ -65,9 +65,9 @@ locals {
 }
 
 resource "aws_eks_access_entry" "eks_eksadmin_access_entry" {
-  cluster_name      = aws_eks_cluster.demo_eks_cluster.name
-  principal_arn     = local.iam_eksadmin_arn
-  type              = "STANDARD"
+  cluster_name  = aws_eks_cluster.demo_eks_cluster.name
+  principal_arn = local.iam_eksadmin_arn
+  type          = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "eks_eksadmin_access_policy" {
@@ -79,16 +79,16 @@ resource "aws_eks_access_policy_association" "eks_eksadmin_access_policy" {
     type       = "cluster"
     namespaces = []
   }
-  
+
   depends_on = [
     aws_eks_cluster.demo_eks_cluster
   ]
 }
 
 resource "aws_eks_access_entry" "eks_iamadmin_access_entry" {
-  cluster_name      = aws_eks_cluster.demo_eks_cluster.name
-  principal_arn     = local.iam_iamadmin_arn
-  type              = "STANDARD"
+  cluster_name  = aws_eks_cluster.demo_eks_cluster.name
+  principal_arn = local.iam_iamadmin_arn
+  type          = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "eks_iamadmin_access_policy" {
@@ -100,7 +100,7 @@ resource "aws_eks_access_policy_association" "eks_iamadmin_access_policy" {
     type       = "cluster"
     namespaces = []
   }
-  
+
   depends_on = [
     aws_eks_cluster.demo_eks_cluster
   ]
@@ -112,7 +112,7 @@ resource "aws_eks_node_group" "eks_nodegroup_1" {
   node_group_name = "eks-nodegroup-1"
   node_role_arn   = aws_iam_role.demo_eks_nodegroup_role.arn
   subnet_ids      = [aws_subnet.private_subnet_1.id]
-  instance_types = ["t3.small"]
+  instance_types  = ["t3.small"]
 
   scaling_config {
     desired_size = 2
@@ -131,7 +131,7 @@ resource "aws_eks_node_group" "eks_nodegroup_1" {
     aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
   ]
-  
+
   tags = {
     Name = "${var.eks_nodegroup_name}-1"
   }
@@ -142,7 +142,7 @@ resource "aws_eks_node_group" "eks_nodegroup_2" {
   node_group_name = "eks-nodegroup-2"
   node_role_arn   = aws_iam_role.demo_eks_nodegroup_role.arn
   subnet_ids      = aws_subnet.private_subnet_2[*].id
-  instance_types = ["t3.small"]
+  instance_types  = ["t3.small"]
 
   scaling_config {
     desired_size = 2
@@ -161,7 +161,7 @@ resource "aws_eks_node_group" "eks_nodegroup_2" {
     aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
   ]
-  
+
   tags = {
     Name = "${var.eks_nodegroup_name}-2"
   }
