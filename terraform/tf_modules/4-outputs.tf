@@ -20,7 +20,7 @@ data "aws_vpc" "vpc_module" {
   id = module.vpc.vpc_id
 }
 
-output "vpc_id" {
-  value = data.aws_vpc.vpc_module.id
+output "vpc_id_from_module" {
+  value       = data.aws_vpc.vpc_module.id
   description = "The ID of the VPC from VPC Modules"
 }

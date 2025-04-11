@@ -22,10 +22,10 @@ variable "eks_nodegroup_name" {
   default     = "demo-eks-nodegroup"
 }
 
-# variable "ACCOUNT_ID" {
-#   description = "AWS Account ID"
-#   type        = string
-# }
+variable "ACCOUNT_ID" {
+  description = "AWS Account ID"
+  type        = string
+}
 
 # variable "iam_iamadmin_arn" {
 #   description = "IAM User ARN to grant to EKS Access Entry"
