@@ -198,3 +198,32 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.demo_eks_nodegroup_role.name
 }
+
+# EKS Add-ons
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name                = aws_eks_cluster.demo_eks_cluster.name
+  addon_name                  = "vpc-cni"
+  addon_version               = "v1.19.2-eksbuild.5"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "core_dns" {
+  cluster_name                = aws_eks_cluster.demo_eks_cluster.name
+  addon_name                  = "coredns"
+  addon_version               = "v1.11.4-eksbuild.2"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "kube_proxy" {
+  cluster_name                = aws_eks_cluster.demo_eks_cluster.name
+  addon_name                  = "kube-proxy"
+  addon_version               = "v1.32.0-eksbuild.2"
+  resolve_conflicts_on_update = "OVERWRITE"
+}
+
+resource "aws_eks_addon" "aws_ebs_csi_driver" {
+  cluster_name                = aws_eks_cluster.demo_eks_cluster.name
+  addon_name                  = "aws-ebs-csi-driver"
+  addon_version               = "v1.42.0-eksbuild.1"
+  resolve_conflicts_on_update = "OVERWRITE"
+}

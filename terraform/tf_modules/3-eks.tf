@@ -5,13 +5,13 @@ module "eks" {
   cluster_name    = var.eks_name
   cluster_version = var.eks_version
 
-  # bootstrap_self_managed_addons = false
-  # cluster_addons = {
-  #   coredns                = {}
-  #   eks-pod-identity-agent = {}
-  #   kube-proxy             = {}
-  #   vpc-cni                = {}
-  # }
+  bootstrap_self_managed_addons = true
+  cluster_addons = {
+    coredns                = {}
+    kube-proxy             = {}
+    vpc-cni                = {}
+    aws-ebs-csi-driver     = {}
+  }
 
   # Optional
   cluster_endpoint_public_access = true
@@ -51,6 +51,10 @@ module "eks" {
       min_size     = 1
       max_size     = 5
       desired_size = 2
+      
+      tags = {
+        Name = "${var.eks_nodegroup_name}-2"
+      }
     }
   }
 
