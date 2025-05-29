@@ -52,7 +52,8 @@ export KARPENTER_VERSION="${KARPENTER_VERSION_V/v}"
 echo "Karpenter's Latest release version: $KARPENTER_VERSION"
 ```
 
-> :warning: Do not proceed further without setting the environment variable $KARPENTER_VERSION to the latest Karpenter version
+> [!WARNING] 
+> Do not proceed further without setting the environment variable $KARPENTER_VERSION to the latest Karpenter version
 
 #### 3. Create the IAM Role and Instance profile for Karpenter Nodes
 
@@ -111,7 +112,8 @@ eksctl get iamserviceaccount --cluster $CLUSTER_NAME --namespace $KARPENTER_NAME
 #### 6. Create the EC2 Spot Service Linked Role
 This step is only necessary if this is the first time you’re using EC2 Spot in this account. More details are available [here](https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html).
 
-> :info: If the role has already been successfully created, you will see an error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForEC2Spot has been taken in this account, please try a different suffix.
+> [!NOTE] 
+> If the role has already been successfully created, you will see an error occurred (InvalidInput) when calling the CreateServiceLinkedRole operation: Service role name AWSServiceRoleForEC2Spot has been taken in this account, please try a different suffix.
 
 ```console
 aws iam create-service-linked-role --aws-service-name spot.amazonaws.com || true
