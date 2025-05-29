@@ -1,0 +1,34 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: appdemo
+  namespace: app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: appdemo
+  minReplicas: 1
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 100
+    # - type: Pods
+    #   pods:
+    #     metric:
+    #       name: appdemo_http_requests_per_second
+    #     # target 500 milli-requests per second,
+    #     # which is 1 request every two seconds
+    #     target:
+    #       type: Value
+    #       averageValue: 500m
